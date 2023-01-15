@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+     <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .error {
+            background-color: rgb(255, 65, 65);
+            color: white
+        }
+
+        .success {
+            background-color: green;
+            color: white
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-wrapper grey darken-3">
+        <div class="container">
+            <a href="#" class="brand-logo">
+                What Do I Need To Do Today
+            </a>
+        </div>
+    </nav>
+    <div class="row"></div>
+     <div class="container">
+        <div class="row">
+            <form class="col s12" method="POST" action="/add">
+              <div class="row">
+                <div class="input-field col s6 offset-s3">
+                  <i class="material-icons prefix">add</i>
+                  <input id="icon_prefix" type="text" name="item">
+                  <label for="icon_prefix">Add Task</label>
+                  <input type="submit" value="Add">
+                </div>
+            </form>
+          </div>
+
+          <div class="row center">
+            <table>
+                <thead>
+                  <tr>
+                      <th>Item Name</th>
+                      <th>Mark Complete</th>
+                  </tr>
+                </thead>
+        
+                <tbody>
+                  {% for item in items %}
+                    <td>{{item.item.title()}}</td>
+                    <td><a href="/delete/{{item.id}}">Done</a></td>
+                  </tr>
+                  {%  endfor  %}
+                </tbody>
+              </table>
+                    
+          </div>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+              <p class="flow-text center">{{ category.title() }}: {{ message.title() }}</p>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
+     </div>
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
